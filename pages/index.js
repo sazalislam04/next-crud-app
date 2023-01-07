@@ -1,11 +1,14 @@
 import { Inter } from "@next/font/google";
 import Head from "next/head";
+import { useState } from "react";
 import Form from "../components/Form";
 import Table from "../components/Table";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [visible, setVisible] = useState(false);
+
   return (
     <>
       <Head>
@@ -14,12 +17,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="p-5">
+      <div className="container mx-auto">
         <h2 className="text-xl md:text-5xl text-center font-semibold p-10">
           Employee Management
         </h2>
-        <div className="container mx-auto">
-          <button className="bg-indigo-500 p-2 items-center flex gap-1 hover:bg-indigo-600 transition duration-300 text-white rounded px-4">
+        <div className="mb-6">
+          <button
+            onClick={() => setVisible(!visible)}
+            className="bg-indigo-500 py-2 items-center flex gap-1 hover:bg-indigo-600 transition duration-300 text-white rounded px-4"
+          >
             <span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -41,9 +47,7 @@ export default function Home() {
         </div>
       </div>
       {/* form */}
-      <div className="container mx-auto">
-        <Form />
-      </div>
+      <div className="container mx-auto">{visible && <Form />}</div>
       {/* table */}
       <div className="container mx-auto">
         <Table />
