@@ -1,18 +1,13 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
-
-const uri = `mongodb+srv://${process.env.USER_DB}:${process.env.PASSWORD_DB}@cluster0.ghivirv.mongodb.net/?retryWrites=true&w=majority`;
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverApi: ServerApiVersion.v1,
-});
+import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    client.connect();
-    console.log("database connect");
-  } catch (error) {
-    console.log(error.message);
+    const { connection } = await mongoose.connect(process.env.MONGO_URI);
+    if (connection.readyState === 1) {
+      console.log("Database connected");
+    }
+  } catch (errors) {
+    return Promise.reject(errors);
   }
 };
 
